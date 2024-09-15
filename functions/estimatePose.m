@@ -23,6 +23,11 @@ img = im2single(img);
 bbox_pr = detect(odn.net, img, 'Threshold', 0.5); % [xmin, ymin, w, h] 
 bbox_pr = double(bbox_pr);                        % (pix., resized)
 
+if isempty(bbox_pr)
+    fprintf("No bounding box found \n");
+    return;
+end
+
 % Prediction to [xmin, ymin, w, h] (pix. org.)
 bbox_pr = bbox_pr ./ [odnInputSize, odnInputSize] .* [imgSize, imgSize];
 
